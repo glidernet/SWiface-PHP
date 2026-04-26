@@ -23,7 +23,7 @@ def get_licenses_per_country(country,prt=False):
    nl=100
    while nl == 100:				# while is not over ???
       url="https://extranet.fai.org/api/v1/licences?auth_username=FAIOrganizer&auth_password="+password+"&discipline=Gliding&country="+country+"&limit_length=100&limit_start="+str(start)
-      if True:
+      if prt:
          print (url,"\n\n")
       j = urllib.request.urlopen(url)
       rr=j.read().decode('UTF-8') 
