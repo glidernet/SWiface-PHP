@@ -12,6 +12,8 @@ import sys
 import atexit
 import socket
 import airportsdata
+from urllib.error import HTTPError
+from suntime import Sun, SunTimeException
 
 from ogn.parser import parse
 from datetime import datetime, timezone
@@ -723,21 +725,30 @@ def SRSSgetapidata(url):                    # get the data from the API server
     req = urllib.request.Request(url)       # buil the request
     req.add_header("Content-Type", "application/json")
     req.add_header("Content-type", "application/x-www-form-urlencoded")
-    r = urllib.request.urlopen(req)         # open the url resource
-    js=r.read().decode('UTF-8')
-    j_obj = json.loads(js)                  # convert to JSON
-    return j_obj                            # return the JSON object
+    try:
+       r = urllib.request.urlopen(req)      # open the url resource
+       js=r.read().decode('UTF-8')
+       j_obj = json.loads(js)               # convert to JSON
+       return j_obj                         # return the JSON object
+    except HTTPError as err:
+       print ("Error gathering SRSS from api.sunrise-sunset.org", err)
+    return ({})
 
+#
+# routines to get the sunrise or sunset for an specific location
+#
 
 def SRSSgetjsondata(lat, lon, obj='sunset', prt=False):
 
     ts = 0                                  # init the return time since epoch
+                                            # let try first to use the web api
     url = "http://api.sunrise-sunset.org/json?lat=" +lat +"&lng=" +lon +"&formatted=0"
     jsondata = SRSSgetapidata(url)          # get the data from the web
     # print jsondata
     if prt:                                 # if print requested
         print(json.dumps(jsondata, indent=4))
-    if jsondata['status'] == "OK":          # only if results are OK
+
+    if 'status' in jsondata and jsondata['status'] == "OK": # only if results are OK
         results = jsondata["results"]       # get the reults part
         timeref = results[obj]         	    # get the object that we need
         print(jsondata['status'], obj, timeref)
@@ -745,7 +756,22 @@ def SRSSgetjsondata(lat, lon, obj='sunset', prt=False):
         ttt = datetime.strptime(timeref, "%Y-%m-%dT%H:%M:%S+00:00")
         # number of second until beginning of the day
         td = ttt -datetime(1970, 1, 1)
-        ts = int(td.total_seconds())      # Unix time - seconds from the epoch
+        ts = int(td.total_seconds())        # Unix time - seconds from the epoch
+    else:
+        if obj=='sunset':		    # lets try using the suntime module
+           sun=Sun(float(lat),float(lon))
+           ttt=sun.get_sunset_time()
+           print("Sunset from suntime:", ttt)
+           naive = ttt.replace(tzinfo=None)
+           td = naive -datetime(1970, 1, 1)
+           ts = int(td.total_seconds())     # Unix time - seconds from the epoch
+        if obj=='sunrise':
+           sun=Sun(float(lat),float(lon))
+           ttt=sun.get_sunrise()
+           print("Sunrise from suntime:", ttt)
+           naive = ttt.replace(tzinfo=None)
+           td = naive -datetime(1970, 1, 1)
+           ts = int(td.total_seconds())     # Unix time - seconds from the epoch
     return (ts)                             # return it
 
 #

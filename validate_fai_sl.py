@@ -15,13 +15,15 @@ import os
 import math
 import pycountry
 import socket
+import config
+password=config.FAIPWD
 def get_licenses_per_country(country,prt=False):
    licenses=[]
    start=0
    nl=100
    while nl == 100:				# while is not over ???
-      url="https://extranet.fai.org/api/v1/licences?auth_username=FAIOrganizer&auth_password=czlWc3NTZXdtUg==&discipline=Gliding&country="+country+"&limit_length=100&limit_start="+str(start)
-      if prt:
+      url="https://extranet.fai.org/api/v1/licences?auth_username=FAIOrganizer&auth_password="+password+"&discipline=Gliding&country="+country+"&limit_length=100&limit_start="+str(start)
+      if True:
          print (url,"\n\n")
       j = urllib.request.urlopen(url)
       rr=j.read().decode('UTF-8') 
@@ -79,7 +81,7 @@ def get_license_details_byln(country, ln, prt=True):
 
 def get_full_license_details(idlicence, prt=False):
     l=str(idlicence)
-    url="https://extranet.fai.org/api/v1/licence/"+l+"?auth_username=FAIOrganizer&auth_password=czlWc3NTZXdtUg"
+    url="https://extranet.fai.org/api/v1/licence/"+l+"?auth_username=FAIOrganizer&auth_password="+password
     if prt:
        print (url,"\n\n")
     j = urllib.request.urlopen(url)

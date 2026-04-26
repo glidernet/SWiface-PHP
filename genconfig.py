@@ -160,6 +160,10 @@ try:
     DIFFAVG = cfg.get('server', 'DIFFAVG').strip("'")
 except:
     DIFFAVG = ''
+try:
+    FAIPWD = cfg.get('server', 'FAIPWD').strip("'")
+except:
+    FAIPWD = ''
 
 
 
@@ -199,6 +203,7 @@ datafile.write("OGNTRACKERS="+OGNTRACKERS+" \n")
 datafile.write("DISTHOME='"+DISTHOME+"' \n")
 datafile.write("DIFFALT='"+DIFFALT+"' \n")
 datafile.write("DIFFAVG='"+DIFFAVG+"' \n")
+datafile.write("FAIPWD='"+FAIPWD+"' \n")
 datafile.write("prt=False \n")
 
 # --------------------------------------#
