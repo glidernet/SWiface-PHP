@@ -16,7 +16,7 @@ import config
 
 # SETUP filter parameters
 if config.DISTHOME != '':
-   DISTHOME = config.DISTHOME
+   DISTHOME = int(config.DISTHOME)
 else:
    DISTHOME= 100.0			# distance to home
 if config.DIFFALT != '':
