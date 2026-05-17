@@ -237,7 +237,7 @@ def soa2fil(client, secretkey,idx, FlarmID, execopt,prt=False, web=False):
            else:
                  print ("No FlarmID for:", pil, regi,ognid)
                  if ognid != '':		# if we have the OGN ID, we can use it as live track ID
-                    livetrack = ognid		# use the OGN ID as live track ID	
+                    livetrk = ognid		# use the OGN ID as live track ID	
                  else:
                     livetrk = 'NOFLARM'		# no live track ID, we will not be able to extract the IGC file from the FLARM messages
                     continue			# we will not be able to extract the IGC file from the FLARM messages, so we skip it
