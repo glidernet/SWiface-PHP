@@ -1,5 +1,6 @@
 rm *funcs.py  ksta.py
 cp /nfs/OGN/src/funcs/parserfuncs.py .
+cp /nfs/OGN/src/funcs/dtfuncs.py .
 cp /nfs/OGN/src/SARsrc/ksta.py .
 cp /nfs/OGN/src/funcs/parserfuncs.py .
 cp /nfs/OGN/src/funcs/ogntfuncs.py .
