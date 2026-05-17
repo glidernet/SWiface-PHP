@@ -307,7 +307,7 @@ def soa2fil(client, secretkey,idx, FlarmID, execopt,prt=False, web=False):
 
        if not web: 
           print("Extracting the IGC file from embeded FLARM messages \nFrom CD:", cwd, "To:", dirpath)
-          print ("CMD:", cmd)
+          print ("CMD:\n\n", cmd, "\n\n")
           print("Resulting IGC file is on:", dirpath, "As: ", fname)
 
        os.system(cmd)
