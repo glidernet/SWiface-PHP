@@ -153,6 +153,7 @@ for line in sys.stdin:                  # read one line
        pass
        lastalt=pa			# remember altitude
        nerr += 1
+       print (">>>DATA ERROR", disthome<DISTHOME, abs(diffalt) < DIFFALT, abs(pa - averagealt) < DIFFAVG, file=sys.stderr)
        print(">>>Ignore", nline, nerr, "Time: ", ttime, totalalt, averagealt, "D: ", distance, disthome, diffalt, lastdist, "Pos:", lat,loclon, lastloclat, lastloclon,  "Alt: ", pa, file=sys.stderr)
        continue
     ppa = "A%05d" % pa                  # format the pressure altitude
