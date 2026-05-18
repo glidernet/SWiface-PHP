@@ -98,7 +98,7 @@ else:
 
 version='V2.05'
 # ---------------------------------------------------------------- #
-print("\n\nUtility to get the api.soaringspot.com data and convert it to a JSON file compatible with the Silent Wings specs Version: "+version)
+print("\n\nUtility to get the api.soaringspot.com data and convert it to a JSON file compatible with the Silent Wings specs.\nVersion: "+version)
 print("=================================================================================================================================\n\n")
 print("Index day: ", idx, " Class requested: ", classreq)
 print("Reading data from clientid/secretkey files")
@@ -128,6 +128,8 @@ if os.path.isdir(cucpath+initials):
 else:
    print("Check directory:", cucpath+initials)
 locname =config.locname
+latitude=config.loclatitude			# latitude of the location for the task file
+longitud=config.loclongitud			# longitude of the location for the task file	
                                                 # where to find the clientid and secretkey files
 secpath  = cwd+"/SoaringSpot/"
 apiurl   = "http://api.soaringspot.com/"        # soaringspot API URL
@@ -149,7 +151,7 @@ local_time = datetime.datetime.now()            # the local time
 print("Local Time is now:", local_time)		# print the time for information only
 fl_date_time = local_time.strftime("%Y%m%d")    # get the local time
 td_date_time = local_time.strftime("%Y-%m-%d")  # get the local time
-print("Config params. SWpath: ", SWdbpath, ", Initials:", initials, ", Location Name:", locname, ", CUCpath:", cucpath)
+print("Config params. SWpath: ", SWdbpath, ", Initials:", initials, ", Location Name:", locname, ", CUCpath:", cucpath, "Latitude:", latitude, "Longitude:", longitud)
 
 nonce = base64.b64encode(os.urandom(36))        # get the once base
                                                 # open the file with the client id
