@@ -454,7 +454,7 @@ for cl in getemb(cd, 'classes'):
     zone=zoneinfo.ZoneInfo(lctimezone)			# get the time zone
     local = localdate.astimezone(tz=zone)
     localdate = local.strftime("%Y-%m-%d")  	# get the local time
-    print("= Tasks ==", ctt[idx]["task_date"], localdate)
+    print("= Tasks ==", ctt[idx]["task_date"], "(today:", localdate, ")")  # print the task date and the local date for control
     if localdate != ctt[idx]["task_date"]:
         print ("Warning ... the task date is not today!!!")
         nwarnings += 1
