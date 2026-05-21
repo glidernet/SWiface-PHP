@@ -593,7 +593,7 @@ jsonfile.write(j)
 if prt:
    print("Task end:==========================>")
    print("\n\nGenerate TSK file ...")
-tsk = {"name": "SGPrace", "color": "0000FF", "legs": legs, "TPpointstype": tptype, "wlist": wlist}
+tsk = {"name": "SGPrace", "color": "0000FF", "legs": legs, "TPpointstype": tptype, "wlist": wlist, "Date": date, "StartTime": comp_starttime/1000, "StartAltitude": comp_startaltitude, "FinishAltitude": comp_finishaltitude}
 tsks = []
 tsks.append(tsk)
 tasks = {"tasks": tsks}
@@ -662,7 +662,7 @@ if npil == 0:
     os.system('rm  '+CSVSFILE)		                # remove the previous one
     exit(-1)
 else:
-    print("\n\nPilots found ... ", npil, "Warnings:", nwarnings)
+    print("\n\nPilots found ... ", npil, "\nWarnings:", nwarnings)
     if nwarnings > 0:
         print("Pilots with no FLARMID: ", warnings)
     exit(0)
