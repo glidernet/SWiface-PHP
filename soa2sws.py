@@ -269,7 +269,7 @@ for cl in getemb(cd, 'classes'):
     print("= Contestants for the class ===========================")
     wlist  = []				        # filter for live.glidernet.org
     tptype = []				        # set the turning point type
-    flist  = []				        # Filter list for glidertracker.orga
+    flist  = []				        # Filter list for glidertracker.org
     flist.append("ID,CALL,CN,TYPE,INDEX")       # Initialize with header row
 
     for contestants in ctt:                     # inspect the data of each contestant
@@ -579,7 +579,7 @@ for cl in getemb(cd, 'classes'):
     os.chmod(JSONFILE, 0o777) 			# make the JSON file accessible
     #print j
     print("Generate TSK file ...")
-    tsk = {"name": classtype, "color": "0000FF", "legs": legs, "TPpointstype": tptype, "wlist": wlist}
+    tsk = {"name": classtype, "color": "0000FF", "legs": legs, "TPpointstype": tptype, "wlist": wlist, "Date": date}		# build the TASK file for this class
     tsks = []
     tsks.append(tsk)
     tasks = {"tasks": tsks}

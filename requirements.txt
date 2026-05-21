@@ -7,7 +7,7 @@ MySQL-python==1.2.5
 ogn_client==1.2.1
 pandas==3.0.3
 ping3==4.0.8
-playwright==1.59.0
+playwright==1.60.0
 pycountry==26.2.16
 pyOpenSSL==25.0.0
 pyOpenSSL==26.2.0
