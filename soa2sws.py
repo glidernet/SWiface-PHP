@@ -661,9 +661,9 @@ if npil == 0:
         os.system('rm  '+CSVFILE)
     exit(-1)
 else:
-    print("Pilots found ... ", npil, "Warnings:", nwarnings, "Date & time:", date)
+    print("\nPilots found ... ", npil, "\nWarnings:", nwarnings, "\nDate & time:", date)
     if nwarnings > 0:
-        print("Pilots with no FLARMID or invalid date: ", warnings)
+        print("\n\nPilots with no FLARMID or invalid date: ", warnings)
     print("<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n\n")
     exit(0)
 #   --------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
