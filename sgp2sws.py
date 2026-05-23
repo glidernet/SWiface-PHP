@@ -218,7 +218,8 @@ if prt:
    print("==========")
 for id in pilots:
     #
-    
+    ogntracker=''				# OGN tracker paired   
+    ogntracker2=''				# OGN tracker paired   
     if prt:
        print("---------------------")
     pid = pilots[id]["i"]                               # get the pilot ID
@@ -263,6 +264,7 @@ for id in pilots:
                ogntracker2=''
         else:
             ogntracker=''
+            ogntracker2=''
     else:
         flarmid = "FLRDDDDDD"				# older versions 
         registration = "EC-XXX"
