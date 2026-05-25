@@ -9,16 +9,17 @@
 import sys
 import json
 import urllib.request, urllib.error, urllib.parse
-import datetime
 import time
 import os
 import math
 import pycountry
 import socket
+from show_competition import *
 from ognddbfuncs import *
 from geofuncs import convertline
 from gistfuncs import *
 from termcolor import colored
+import datetime
 #-------------------------------------------------------------------------------------------------------------------#
 import config
 Flags = { 						# flag colors assigned to the countries
@@ -137,7 +138,32 @@ if prt or www:
    except:
       sha="no sha"
    print ("Git commit:", sha,"\n\n")
+# Parse the ID
+try:
+    competition_id = int(qsgpID)
+except ValueError:
+    print(f"Error: '{arg}' is not a valid integer ID.")
+    print("Usage: python show_competition.py <id>")
+    print("       python show_competition.py --list   # show all competitions")
+    sys.exit(1)
 
+print(f"\nFetching competition #{competition_id} …")
+
+try:
+    events = fetch_events()
+except Exception as exc:
+    print(f"Error fetching data: {exc}")
+    sys.exit(1)
+
+event = find_by_id(events, competition_id)
+if event is None:
+    print(f"\nNo competition found with ID {competition_id}.")
+    print("Use --list to see all available IDs.")
+    sys.exit(1)
+
+print_competition(event)
+
+print("==============================\n\n")
 
 j = urllib.request.urlopen('https://www.crosscountry.aero/c/sgp/rest/comps/')
 rr=j.read().decode('UTF-8') 
@@ -378,7 +404,7 @@ if j_obj.get("j") != None:
     numberofactivedays = j_obj["j"]
 if j_obj.get("i") == None:				# check if is fully setup the web site
     print("No index of days ... exiting.")
-    print("WARNING: No valid JSON file generated .....................")
+    print("\n\nWARNING: No valid JSON file generated .....................\n\n")
     os.system('rm  '+JSONFILE)		                # remove the previous one
     os.system('rm  '+TASKFILE)		                # remove the previous one
     os.system('rm  '+COMPFILE)		                # remove the previous one
@@ -465,8 +491,9 @@ print("\nStart time (millis):", comp_starttime, "Start alt.:", comp_startaltitud
 if "k" in d_obj:
     comp_taskinfo = d_obj["k"]			        # task infor data
 else:
-    print("No task for that day...")
-    print("WARNING: No valid JSON file generated .....................")
+    print("No task for that day...")			# no task for that day
+    print("=======================")
+    print("\n\nWARNING: No valid JSON file generated .....................\n\n")
                                                         # remove the previous one
     os.system('rm  '+JSONFILE)
                                                         # remove the previous one
@@ -474,37 +501,37 @@ else:
     os.system('rm  '+COMPFILE)		                # remove the previous one
     os.system('rm  '+CSVSFILE)		                # remove the previous one
     exit()
-task_type = comp_taskinfo["@type"]
-task_id = comp_taskinfo["id"]
-task_listid = comp_taskinfo["taskListId"]
-task_name = comp_taskinfo["name"]
-task_data = comp_taskinfo["data"]
-task_creator = comp_taskinfo["creator"]		        # creator
+task_type 	= comp_taskinfo["@type"]
+task_id 	= comp_taskinfo["id"]
+task_listid 	= comp_taskinfo["taskListId"]
+task_name 	= comp_taskinfo["name"]
+task_data 	= comp_taskinfo["data"]
+task_creator 	= comp_taskinfo["creator"]	        # creator
 task_description = comp_taskinfo["description"]		# description of the task
-task_desc = json.loads(task_description)
-task_length = task_desc["d"]				# task length
-task_atfrom = task_desc["ta"]			        # task from
+task_desc 	= json.loads(task_description)
+task_length 	= task_desc["d"]			# task length
+task_atfrom 	= task_desc["ta"]		        # task from
 
-task_at = task_data["at"]
-task_wp = task_data["g"]
-task_wpla = task_data["u"]
-task_wptlist = task_wpla["wptList"]
+task_at 	= task_data["at"]
+task_wp 	= task_data["g"]
+task_wpla 	= task_data["u"]
+task_wptlist 	= task_wpla["wptList"]
 task_at_country = task_at["c"]
 task_at_timezone = task_at["z"]
 task_at_elevation = task_at["e"]
-task_at_place = task_at["n"]
+task_at_place 	= task_at["n"]
 task_at_altitude = task_at["e"]
 task_at_runwaydir = task_at["d"]
 task_at_runwaywidth = task_at["w"]
 task_at_runwaysurface = task_at["f"]
-task_at_runway = task_at["f"]
+task_at_runway 	= task_at["f"]
 task_at_runways = task_at["k"]
 if task_at.get("j") != None:
     task_at_icao = task_at["j"]
 else:
     task_at_icao = "NOID"
 
-task_at_source = task_at["s"]
+task_at_source 	= task_at["s"]
 
 if task_at.get("q") != None:
     task_at_freq = task_at["q"]
