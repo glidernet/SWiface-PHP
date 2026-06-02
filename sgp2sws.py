@@ -69,7 +69,7 @@ cucpath = config.cucFileLocation
 tp = []						# turn point list
 tracks = []					# track list
 MTK=False					# microtrack flag	
-version='V2.05'
+version='V2.06'
 if 'USER' in os.environ:
         user=os.environ['USER']
 else:
@@ -81,6 +81,11 @@ local_time = datetime.datetime.now()
 
 if qsgpIDreq and qsgpIDreq[0] != '0':
     qsgpID = sys.argv[1]
+    if qsgpID == '--list' or qsgpID == '-l' or qsgpID == '0':
+        events=fetch_events() 
+        j = json.dumps(events, indent=4)
+        print(j)
+        exit(0)
     if not qsgpID.isnumeric():
 
        print ("Please indicate the COMP ID\n\n")
@@ -139,6 +144,11 @@ if prt or www:
       sha="no sha"
    print ("Git commit:", sha,"\n\n")
 # Parse the ID
+if qsgpID == '0':
+    events=fetch_events() 
+    j = json.dumps(events, indent=4)
+    print(j)
+    exit(0)
 try:
     competition_id = int(qsgpID)
 except ValueError:
