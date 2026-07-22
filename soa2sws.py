@@ -96,7 +96,7 @@ else:
     classreq = ' '                              # none
 
 
-version='V2.05'
+version='V2.06'
 # ---------------------------------------------------------------- #
 print("\n\nUtility to get the api.soaringspot.com data and convert it to a JSON file compatible with the Silent Wings specs.\nVersion: "+version)
 print("=================================================================================================================================\n\n")
@@ -454,11 +454,20 @@ for cl in getemb(cd, 'classes'):
     zone=zoneinfo.ZoneInfo(lctimezone)			# get the time zone
     local = localdate.astimezone(tz=zone)
     localdate = local.strftime("%Y-%m-%d")  	# get the local time
+    try:
+        taskname = ctt[idx]["task_name"]
+    except:
+        print ("No task yet...", url4)          # when the task is not ready
+        os.system('rm  '+JSONFILE)		# delete the JSON & TASK files
+        os.system('rm  '+TASKFILE)
+        os.system('rm  '+CSVFILE)
+        exit(-1)				# nothing else to do now
     print("= Tasks ==", ctt[idx]["task_date"], "(today:", localdate, ")")  # print the task date and the local date for control
     if localdate != ctt[idx]["task_date"]:
         print ("Warning ... the task date is not today!!!")
         nwarnings += 1
         warnings.append('<< DATE >>--'+classtype)
+    print("= Tasks ==", taskname)
     print("= Tasks ==", ctt[idx]["result_status"])
     print("= Tasks ==", ctt[idx]["task_distance"]/1000)
     tasktype = ctt[idx]["task_type"]

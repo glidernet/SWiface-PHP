@@ -177,7 +177,7 @@ ksta = {
 "ElPerdon"  : "El Perdon, Navarra ",
 "AltoLeons" : "Alto de los Leones, Madrid",
 "Paracuell" : "Paracuellos Madrid",
-"PARACUEL1" : "Paracuellos Madrid",
+"PARACUELL" : "Paracuellos Madrid",
 "Barjas"    : "Barajas, Madrid",
 "SSCC-RDAR" : "Estacion radar Paracuellos, Madrid ",
 "SpainAVX"  : "Estacion ficticia gateway AVX ",
